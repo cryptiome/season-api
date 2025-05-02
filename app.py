@@ -9,7 +9,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Load the trained model (Random Forest + StandardScaler pipeline)
-model = joblib.load("model.joblib")  # Make sure this file is in the same folder
+model = joblib.load("model.joblib")
 
 # Class labels (these must match your label encoding)
 folders = ['Autumn', 'Spring', 'Summer', 'Winter']
@@ -35,20 +35,20 @@ def predict():
         file = request.files['image']
         image = Image.open(io.BytesIO(file.read()))
 
-        print("✅ Image received. Processing...")
+        print(" Image received. Processing...")
 
         features = extract_features(image)
-        print(f"✅ Features extracted: {features.shape}")
+        print(f" Features extracted: {features.shape}")
 
         prediction = model.predict(features)[0]
         class_name = folders[prediction]
 
-        print(f"✅ Prediction: {class_name} ({prediction})")
+        print(f" Prediction: {class_name} ({prediction})")
 
         return jsonify({'prediction': int(prediction), 'label': class_name})
 
     except Exception as e:
-        print(f"❌ Error during prediction: {e}")
+        print(f" Error during prediction: {e}")
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
