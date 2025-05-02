@@ -4,3 +4,6 @@ joblib
 numpy
 Pillow
 scikit-learn
+keras
+tensorflow
+
